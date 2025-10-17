@@ -8,12 +8,20 @@ import (
 
     "github.com/gofiber/fiber/v2"
     "github.com/gofiber/fiber/v2/middleware/cors"
+    "github.com/joho/godotenv"
     _ "github.com/godror/godror"
 )
 
 var db *sql.DB
 
 func main() {
+
+    // Load .env file if it exists
+    env_err := godotenv.Load()
+    if env_err != nil {
+        log.Println("⚠️  No .env file found (using system environment variables).")
+    }
+
     // Get values from environment variables to connect to the Oracle DB 
     user := os.Getenv("BREATHE_DB_USER")
     password := os.Getenv("BREATHE_DB_PASSWORD")
